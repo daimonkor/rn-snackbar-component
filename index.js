@@ -113,8 +113,6 @@ class Snackbar extends Component {
       || nextState.hideDistance !== this.state.hideDistance) {
       if (nextProps.visible) {
         this.props.distanceCallback(nextState.hideDistance + this.props.bottom);
-      } else {
-        this.props.distanceCallback(this.props.bottom);
       }
     }
   }
@@ -129,7 +127,9 @@ class Snackbar extends Component {
       toValue: 0,
       easing: easingValues.exit,
       useNativeDriver: this.props.native,
-    }).start();
+    }).start((result)=> {
+      this.props.distanceCallback(0)
+    });
   }
 }
 
