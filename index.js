@@ -26,6 +26,9 @@ class Snackbar extends Component {
       translateValue: new Animated.Value(0),
       hideDistance: 9999,
     };
+    this.state.translateValue.addListener(({value}) =>{
+        this.props.distanceCallback((this.state.hideDistance) * value + this.props.bottom);
+    });
   }
 
   render() {
@@ -105,15 +108,6 @@ class Snackbar extends Component {
       }
     } else if (!nextProps.visible && this.props.visible) {
       this.hideSnackbar();
-    }
-  }
-
-  UNSAFE_componentWillUpdate(nextProps, nextState) {
-    if (nextProps.visible !== this.props.visible
-      || nextState.hideDistance !== this.state.hideDistance) {
-      if (nextProps.visible) {
-        this.props.distanceCallback(nextState.hideDistance + this.props.bottom);
-      }
     }
   }
 
